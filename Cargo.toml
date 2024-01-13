@@ -1,0 +1,13 @@
+[package]
+name = "wallet-dat"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+block-modes = "0.8"
+dusk-bytes = "0.1.7"
+rand = "0.8"
+aes = "0.7"
+blake3 = "1.3"
