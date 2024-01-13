@@ -70,8 +70,7 @@ pub fn get_seed_and_address(
             bytes = decrypt(&bytes, pwd)?;
 
             // get our seed
-            let seed =
-                Seed::from_reader(&mut &bytes[..]).map_err(|_| Error::WalletFileCorrupted)?;
+            let seed = Seed::from_reader(&bytes[..]).map_err(|_| Error::WalletFileCorrupted)?;
 
             Ok((seed, 1))
         }
@@ -81,20 +80,18 @@ pub fn get_seed_and_address(
             let result: Result<(Seed, _)> = match (major, minor) {
                 (1, 0) => {
                     let content = decrypt(&bytes, pwd)?;
-                    let mut buff = &content[..];
+                    let buff = &content[..];
 
-                    let seed =
-                        Seed::from_reader(&mut buff).map_err(|_| Error::WalletFileCorrupted)?;
+                    let seed = Seed::from_reader(buff).map_err(|_| Error::WalletFileCorrupted)?;
 
                     Ok((seed, 0))
                 }
                 (2, 0) => {
                     let content = decrypt(&bytes, pwd)?;
-                    let mut buff = &content[..];
+                    let buff = &content[..];
 
                     // extract seed
-                    let seed =
-                        Seed::from_reader(&mut buff).map_err(|_| Error::WalletFileCorrupted)?;
+                    let seed = Seed::from_reader(buff).map_err(|_| Error::WalletFileCorrupted)?;
 
                     // extract addresses count
                     Ok((seed, 0))
